@@ -1,0 +1,14 @@
+﻿<Properties StartupConfiguration="{64F39A75-D6A9-FF05-133A-7F5C1173D9DB}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ParticleCSV.cs">
+    <Files>
+      <File FileName="Assets/Scripts/ParticleCSV.cs" Line="110" Column="57" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
