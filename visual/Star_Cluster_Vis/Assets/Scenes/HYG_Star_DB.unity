@@ -480,6 +480,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleContainer: {fileID: 1078274642}
+  SCALE_INC: 0.0005
+  SCALE_BASE: 0.0001
+  MOVE_INC: 0.0025
+  VR_CONTROLLER_THRESHOLD: 0.5
+  ROTATION_SPEED: 0.1
 --- !u!1 &1090128689
 GameObject:
   m_ObjectHideFlags: 0
@@ -5246,10 +5251,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ffca620b3bd34c41b907a6bd6a141fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePath: star.csv
   COLOR_ACCURATE: 1
   MOD_VAL: 4
-  starAmmount: 119615
   partSystem: {fileID: 1090128691}
   file: {fileID: 4900000, guid: 20151ca0bb42648de931a91d8fb1f8b1, type: 3}
 --- !u!1 &1118550623
