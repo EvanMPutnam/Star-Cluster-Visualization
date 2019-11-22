@@ -35,13 +35,13 @@ def main():
     # Data within a one degree box of Pleiades
     # RA between 56.35 and 57.35
     # DEC between 23.65 and 24.65
-    parse("pleiades.csv")
+    parse("pleiades_final.csv")
 
     # Data within a four degree box of Pleiades
     # RA between 55 and 58
     # DEC between 22 and 26
     # parallax > 6.2 AND parallax < 12.5
-    parse("pleiades4.csv")
+    #parse("pleiades4.csv")
 
 
 if __name__ == '__main__':
