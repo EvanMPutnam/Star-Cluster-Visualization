@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HYG_Star_DB.unity
     guid: acaa9b93841524b138e72c0dd5afb1fd
+  - enabled: 1
+    path: Assets/Scenes/Pleiades_Star_DB.unity
+    guid: cfa88a572f3ba40a59a154415a639c1f
   m_configObjects: {}
