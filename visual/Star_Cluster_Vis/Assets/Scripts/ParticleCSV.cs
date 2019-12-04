@@ -151,8 +151,8 @@ public class ParticleCSV : MonoBehaviour {
 
 
 	//Scaling function.
-	private float scale_one_through_zero_value(float value, float max){
-		return 0.0f + (1.0f - 0.0f) * ((value-0.0f)/(max-0.0f));
+	private float scale_one_through_zero_value(float value, float max, float new_max){
+		return 0.0f + (new_max - 0.0f) * ((value-0.0f)/(max-0.0f));
 	}
 
 	private void Plot_Stars(StarContainer s){
@@ -190,9 +190,9 @@ public class ParticleCSV : MonoBehaviour {
 				} else {
 					ColorIndex c = s.GetColor(i);
 					if (c != null) {
-						float r = scale_one_through_zero_value((float)c.r, s.max_r_val);
-						float g = scale_one_through_zero_value((float)c.g, s.max_g_val);
-						float b = scale_one_through_zero_value((float)c.b, s.max_b_val);
+						float r = scale_one_through_zero_value((float)c.r, s.max_r_val, 1.0f);
+						float g = scale_one_through_zero_value((float)c.g, s.max_g_val, 1.0f);
+						float b = scale_one_through_zero_value((float)c.b, s.max_b_val, 1.0f);
 						par.startColor = new Color (r, g, b);
 					} else {
 						par.startColor = Color.white;
@@ -201,7 +201,7 @@ public class ParticleCSV : MonoBehaviour {
 			}
 			
 
-			float par_size = scale_one_through_zero_value((float)star.radius, s.max_radius);
+			float par_size = scale_one_through_zero_value((float)star.radius, s.max_radius, 5.0f);
 			par.startSize = par_size + 0.1f;
 			arrParts [i] = par;
 		}

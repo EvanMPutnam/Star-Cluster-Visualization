@@ -62,8 +62,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pleiades_beehive_output.csv">
           <provider selected="true" editor-type-id="csv-text-editor">
-            <state>
-              <caret column="1712" selection-start-column="1712" selection-end-column="1718" />
+            <state relative-caret-position="-52182">
+              <caret line="7" column="1249" selection-start-line="7" selection-start-column="1249" selection-end-line="7" selection-end-column="1249" />
             </state>
           </provider>
         </entry>
@@ -230,14 +230,14 @@
     <entry file="file://$PROJECT_DIR$/PleiadesAndBeehive.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="0" />
+          <selected id="3" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pleiades_beehive_output.csv">
       <provider selected="true" editor-type-id="csv-text-editor">
-        <state>
-          <caret column="1712" selection-start-column="1712" selection-end-column="1718" />
+        <state relative-caret-position="-52182">
+          <caret line="7" column="1249" selection-start-line="7" selection-start-column="1249" selection-end-line="7" selection-end-column="1249" />
         </state>
       </provider>
     </entry>
