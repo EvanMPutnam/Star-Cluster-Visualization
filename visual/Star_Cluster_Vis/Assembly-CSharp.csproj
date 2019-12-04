@@ -2,8 +2,6 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-    <CscToolPath>/Applications/Unity/Hub/Editor/2019.2.9f1/Unity.app/Contents/Tools/RoslynScripts</CscToolPath>
-    <CscToolExe>unity_csc.sh</CscToolExe>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -46,16 +44,7 @@
     <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="UnityEngine">
-      <HintPath>/Applications/Unity/Hub/Editor/2019.2.9f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>/Applications/Unity/Hub/Editor/2019.2.9f1/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-     <Compile Include="Assets\Oculus\AudioManager\Scenes\Scripts\TestScript.cs" />
+  <ItemGroup>     <Compile Include="Assets\Oculus\AudioManager\Scenes\Scripts\TestScript.cs" />
      <Compile Include="Assets\Oculus\AudioManager\Scripts\Audio\AmbienceEmitter.cs" />
      <Compile Include="Assets\Oculus\AudioManager\Scripts\Audio\AudioManager.cs" />
      <Compile Include="Assets\Oculus\AudioManager\Scripts\Audio\AudioManager_Sound.cs" />
@@ -347,7 +336,9 @@
      <Compile Include="Assets\Oculus\VoiceMod\Scripts\Helpers\OVRMicInput.cs" />
      <Compile Include="Assets\Oculus\VoiceMod\Scripts\OVRVoiceMod.cs" />
      <Compile Include="Assets\Oculus\VoiceMod\Scripts\OVRVoiceModContext.cs" />
+     <Compile Include="Assets\Scripts\Generic_Parser.cs" />
      <Compile Include="Assets\Scripts\ParticleCSV.cs" />
+     <Compile Include="Assets\Scripts\Pleiades_Parser.cs" />
      <Compile Include="Assets\Scripts\VR_Control.cs" />
      <None Include="Assets\Oculus\Avatar\Resources\Materials\Version1.5\Avatar_PC_SingleComponent.shader" />
      <None Include="Assets\Oculus\Avatar\Samples\CrossPlatform\Readme.txt" />
@@ -403,6 +394,9 @@
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>/Users/evanputnam/Desktop/Star_Cluster/Star-Cluster-Visualization/visual/Star_Cluster_Vis/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine">
+ <HintPath>/Applications/Unity/Hub/Editor/2019.2.9f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>/Applications/Unity/Hub/Editor/2019.2.9f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -574,6 +568,9 @@
  </Reference>
  <Reference Include="UnityEngine.XRModule">
  <HintPath>/Applications/Unity/Hub/Editor/2019.2.9f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor">
+ <HintPath>/Applications/Unity/Hub/Editor/2019.2.9f1/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>/Applications/Unity/Hub/Editor/2019.2.9f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

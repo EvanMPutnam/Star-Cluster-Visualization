@@ -6,9 +6,6 @@ using System.IO;
 using System;
 
 
-
-
-
 /// <summary>
 /// Basic class to represent an rgb color index.
 /// </summary>
@@ -24,6 +21,70 @@ public class ColorIndex {
 }
 
 
+public class Star{
+	public float x;
+	public float y;
+	public float z;
+
+	public Star(float x, float y, float z){
+		this.x = x;
+		this.y = y;
+		this.z = z;
+	}
+
+}
+
+/**
+Each parser needs to return an instance of this class.
+*/
+public class StarContainer{
+
+	private List<Star> stars;
+
+	private List<ColorIndex> colorsRGB;
+
+	public int modVal { get; private set; }
+
+	public float scaleVal { get; private set; }
+
+	public StarContainer(int modVal, float scaleVal){
+		this.stars = new List<Star>();
+		this.colorsRGB = new List<ColorIndex>();
+		this.modVal = modVal;
+		this.scaleVal = scaleVal;
+	}
+
+	public void addStar(float x, float y, float z, ColorIndex c = null){
+		if(c != null){
+			this.colorsRGB.Add(c);
+		}
+		this.stars.Add(new Star(x, y, z));
+	}
+
+	public int starLength(){
+		return this.stars.Count;
+	}
+
+	public Star GetStar(int i){
+		return this.stars[i];
+	}
+
+	public ColorIndex GetColor(int i){
+		return this.colorsRGB[i];
+	}
+
+	public bool isTrueColor(){
+		return colorsRGB.Count != 0;
+	}
+}
+
+/**
+* Each parser inherets this abstract class.
+*/
+public abstract class ParseStars{
+	public abstract StarContainer parseFile(TextAsset file, ParticleSystem particleSystem);
+}
+
 
 /// <summary>
 /// Main execution class for ParticleCSVs
@@ -36,6 +97,9 @@ public class ParticleCSV : MonoBehaviour {
 	/// Whether or not the stars are color accurate
 	/// </summary>
 	public Boolean COLOR_ACCURATE = true;
+
+
+	public Boolean PLEIADIS = true;
 
 
 	/// <summary>
@@ -67,7 +131,12 @@ public class ParticleCSV : MonoBehaviour {
 	/// <summary>
 	/// Scalar to multiply the x, y, z locations by to spread them out
 	/// </summary>
-	private float scaler = .8f;
+	private float scaler = 1.0f;
+
+	/// <summary>
+	/// Scalar for pleiades.
+	/// </summary>
+	private float pScalar = 1.0f;
 
 
 	/// <summary>
@@ -94,8 +163,49 @@ public class ParticleCSV : MonoBehaviour {
 	/// Start function reads in the csv files and then subsequently creates the stars.
 	/// </summary>
 	void Start () {
-		readCsv ();
-		createStars ();
+		//readCsv ();
+		//createStars ();
+		StarContainer s = Generic_Parser.Create_Star_Cluster(file, MOD_VAL, pScalar);
+		Plot_Stars(s);
+	}
+
+	private void Plot_Stars(StarContainer s){
+		//Create particles
+		for (int i = 0; i < s.starLength(); i++)
+		{
+			partSystem.Emit(1);
+		}
+
+		//Get particles to place.
+		ParticleSystem.Particle[] arrParts;
+		arrParts = new ParticleSystem.Particle[s.starLength()];
+		partSystem.GetParticles (arrParts);
+
+		//Get values
+		for(int i = 0; i < s.starLength(); i++){
+			ParticleSystem.Particle par = arrParts[i];
+			//Get the star.
+			Star star = s.GetStar(i);
+			
+			par.position = new Vector3(
+				star.x * s.scaleVal, 
+				star.y * s.scaleVal, 
+				star.z * s.scaleVal
+			);
+
+			//If color accurate is true then set true color.
+			if (s.isTrueColor()) {
+				ColorIndex c = s.GetColor(i);
+				if (c != null) {
+					par.startColor = new Color ((float)c.r, (float)c.g, (float)c.b);
+				} else {
+					par.startColor = Color.white;
+				}
+			}
+			
+			arrParts [i] = par;
+		}
+		partSystem.SetParticles(arrParts, s.starLength());
 	}
 
 
@@ -106,6 +216,19 @@ public class ParticleCSV : MonoBehaviour {
 		
 		DateTime d = DateTime.Now;
 
+
+		int x = 17;
+		int y = 18;
+		int z = 19;
+
+		if(PLEIADIS)
+		{
+			x = 99;
+			y = 100;
+			z = 101;
+			COLOR_ACCURATE = false;
+			scaler = 1;
+		}
 		xLocs = new List<float>();
 		yLocs = new List<float>();
 		zLocs = new List<float>();
@@ -117,6 +240,12 @@ public class ParticleCSV : MonoBehaviour {
 		//Process each star.
 		foreach (string line in star_file_lines) {
 			var values = line.Split (',');
+			if(count == 0)
+			{
+				Debug.Log(values[x]);
+				Debug.Log(values[y]);
+				Debug.Log(values[z]);
+			}
 			//First line should ALWAYS be an indexer to tell where values are.
 			if (count != 0) {
 				//Modulo value to help limit large datasets but keep even distribution.
@@ -133,9 +262,9 @@ public class ParticleCSV : MonoBehaviour {
 
 
 					//Note that y and z coordinates are flipped because unity has a different coordinate system.  Y is up/down
-					xLocs.Add (float.Parse (values [17]));
-					yLocs.Add (float.Parse (values [19]));
-					zLocs.Add (float.Parse (values [18]));
+					xLocs.Add (float.Parse (values [x]));
+					yLocs.Add (float.Parse (values [z]));
+					zLocs.Add (float.Parse (values [y]));
 					partSystem.Emit (1);
 					//Counter for particle system to know how many stars.
 					starSize += 1;
@@ -166,11 +295,24 @@ public class ParticleCSV : MonoBehaviour {
 		int count = 0;
 		foreach( float x in xLocs){
 			ParticleSystem.Particle par = arrParts[count];
-			par.position = new Vector3(
-				xLocs[count] * scaler, 
-				yLocs[count] * scaler, 
-				zLocs[count] * scaler
-			);
+			if(PLEIADIS)
+			{
+				par.position = new Vector3(
+					xLocs[count] * pScalar, 
+					yLocs[count] * pScalar, 
+					zLocs[count] * pScalar
+				);
+			}
+			else
+			{
+				par.position = new Vector3(
+					xLocs[count] * scaler, 
+					yLocs[count] * scaler, 
+					zLocs[count] * scaler
+				);
+			}
+			Debug.Log(par.startSize);
+			Debug.Log("Hello");
 
 
 
@@ -199,7 +341,7 @@ public class ParticleCSV : MonoBehaviour {
 	/// Found here https://stackoverflow.com/questions/21977786/star-b-v-color-index-to-apparent-rgb-color
 	/// </summary>
 	/// <param name="bv">B-V value for star</param>
-	ColorIndex bv2rgb(double bv)    // RGB <0,1> <- BV <-0.4,+2.0> [-]
+	public static ColorIndex bv2rgb(double bv)    // RGB <0,1> <- BV <-0.4,+2.0> [-]
 	{
 
 		//Init vars
