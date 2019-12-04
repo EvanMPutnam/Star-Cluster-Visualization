@@ -42,7 +42,7 @@ public class Pleiades_Parser : ParseStars
 					//Note that y and z coordinates are flipped because unity has a different coordinate system.  Y is up/down
                     starContainer.addStar(float.Parse (values[X]), 
                                             float.Parse (values[Z]), 
-                                            float.Parse (values[Y]));
+                                            float.Parse (values[Y]), 0.0f);
 					partSystem.Emit (1);
 					//Counter for particle system to know how many stars.
 					starSize += 1;

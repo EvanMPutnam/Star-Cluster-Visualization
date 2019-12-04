@@ -1,21 +1,17 @@
 import math
 import pandas as pd
 
-
 def distance(x):
     if x < 0:
         return 0
     else:
         return 1/x
 
-
 def x(R, b, l):
     return R * math.cos(b) * math.cos(l)
 
-
 def y(R, b, l):
     return R * math.cos(b) * math.sin(l)
-
 
 def z(R, b):
     return R * math.sin(b)
@@ -37,7 +33,6 @@ def radius(l, t):
     ans = l/(4*math.pi*const*math.pow(t, 4))
     return math.log10(math.sqrt(ans))
 
-
 def parse(csv_file):
     df = pd.read_csv(csv_file)
     df.loc[:, 'parallax_arcsec'] = df['parallax'].apply(lambda x: x * .001)
@@ -51,7 +46,6 @@ def parse(csv_file):
     df.loc[:, 'radius'] = df.apply(lambda r: radius(r['phot_g_mean_mag'], r['temperature']), axis=1)
 
     df.to_csv(csv_file.split('.')[0] + "_output.csv")
-
 
 def main():
     # Data within a one degree box of Pleiades

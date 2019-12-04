@@ -9,6 +9,8 @@ public class Generic_Parser {
     private const string R_COL = "phot_rp_mean_mag";
     private const string G_COL = "phot_g_mean_mag";
     private const string B_COL = "phot_bp_mean_mag";
+    private const string B_MINUS_V = "bp_rp";
+    private const string RADIUS = "radius";
 
     public static StarContainer Create_Star_Cluster(TextAsset file, int mod_val, float scale_val){
         StarContainer s = new StarContainer(mod_val, scale_val);
@@ -24,13 +26,26 @@ public class Generic_Parser {
         int g_index = -1;
         int b_index = -1;
 
+        //Radius of the star
+        int radius_index = -1;
+
+        //B-V value
+        int b_minx_v_index = -1;
+
+        //If rgb values are found
         bool rgb_found = false;
 
         int count = 0;
 
+        //int total_rgb_vals = 0;
+
         float max_r_val = 0;
         float max_g_val = 0;
         float max_b_val = 0;
+
+        float max_radius = 0;
+
+        float max_b_minus_v = 0;
 
         bool first_val = true;
         foreach (string line in lines){
@@ -56,18 +71,26 @@ public class Generic_Parser {
                     if(line_parts[i].ToLower().Equals(B_COL)){
                         b_index = i;
                     }
+                    if(line_parts[i].ToLower().Equals(B_MINUS_V)){
+                        b_minx_v_index = i;
+                    }
+                    if(line_parts[i].ToLower().Equals(RADIUS)){
+                        radius_index = i;
+                    }
                 }
                 first_val = false;
             }else{
                 string[] line_parts = line.Split(',');
                 if(line_parts.Length != 1 && count % mod_val == 0){
                     ColorIndex ci = null;
+                    float b_minus = 4.0f;
                     //If color found then populate it.
                     if(rgb_found){
                         try{
                             ci = new ColorIndex(float.Parse(line_parts[r_index]),
                                         float.Parse(line_parts[g_index]), 
                                         float.Parse(line_parts[b_index]));
+                            
                             Debug.Log(line_parts[r_index]);
                             if(float.Parse(line_parts[r_index]) > max_r_val){
                                 max_r_val = float.Parse(line_parts[r_index]);
@@ -81,15 +104,24 @@ public class Generic_Parser {
                         }catch{
                             ci = new ColorIndex(15.0f, 15.0f, 15.0f);
                         }
+                        try{
+                            b_minus = float.Parse(line_parts[b_minx_v_index]);
+                            if(b_minus > max_b_minus_v){
+                                max_b_minus_v = b_minus;
+                            }
+                        }catch{
+                            b_minus = 4.0f;
+                        }
                     }
+
                     //Populate star container with a new star. (y,z are flipped for unity.)
                     s.addStar(float.Parse(line_parts[x_index]), 
                                 float.Parse(line_parts[z_index]), 
-                                float.Parse(line_parts[y_index]), ci);
-                    if (count == 2){
-                        Debug.Log(line_parts[x_index]);
-                        Debug.Log(line_parts[y_index]);
-                        Debug.Log(line_parts[z_index]);
+                                float.Parse(line_parts[y_index]), 
+                                float.Parse(line_parts[radius_index]),
+                                ci, b_minus);
+                    if(float.Parse(line_parts[radius_index]) > max_radius){
+                        max_radius = float.Parse(line_parts[radius_index]);
                     }
                     
                 }
@@ -101,14 +133,17 @@ public class Generic_Parser {
                 rgb_found = true;
             }
             //Did not find
-            if(x_index == -1 || y_index == -1 || z_index == -1){
+            if(x_index == -1 || y_index == -1 || z_index == -1 || radius_index == -1){
                 return null;
             }
+
         }
 
         s.max_r_val = max_r_val;
         s.max_g_val = max_g_val;
         s.max_b_val = max_b_val;
+        s.max_radius = max_radius;
+
         return s;
     }
 
