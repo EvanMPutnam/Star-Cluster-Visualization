@@ -5251,11 +5251,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ffca620b3bd34c41b907a6bd6a141fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  COLOR_ACCURATE: 1
-  PLEIADIS: 1
   MOD_VAL: 1
   partSystem: {fileID: 1090128691}
-  file: {fileID: 4900000, guid: 755a3723890804b469d7ece767b6846b, type: 3}
+  file: {fileID: 4900000, guid: 808092f299baa482d951a8fdedfddd23, type: 3}
+  is_b_minus_v_value: 1
 --- !u!1 &1118550623
 GameObject:
   m_ObjectHideFlags: 0
