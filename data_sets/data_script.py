@@ -46,7 +46,6 @@ def parse(csv_file):
 
     df.to_csv(csv_file.split('.')[0] + "_output.csv")
 
-<<<<<<< HEAD
 def parse2(csv_file, csv_file2):
     df = pd.read_csv(csv_file)
     df.loc[:, 'parallax_arcsec'] = df['parallax'].apply(lambda x: x * .001)
@@ -74,9 +73,6 @@ def parse2(csv_file, csv_file2):
     df3 = pd.concat(frames)
     df3.to_csv(csv_file.split('.')[0] + csv_file2.split('.')[0] + "_final_output.csv")
 
-
-=======
->>>>>>> 2e623b38ab44a14ca89711e86381990e30d035eb
 def main():
     # Data within a one degree box of Pleiades
     # RA between 56.35 and 57.35
