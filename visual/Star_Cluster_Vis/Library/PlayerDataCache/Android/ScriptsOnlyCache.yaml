@@ -13,7 +13,6 @@ ScriptsOnlyBuild:
     - OVRScreenFade
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
-    - UnityEditor.TestTools.TestRunner.TestListCacheData
   sceneClasses:
     Assets/Scenes/Pleiades_Star_DB.unity:
     - Class: 1

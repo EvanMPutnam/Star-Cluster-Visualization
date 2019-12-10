@@ -118,6 +118,12 @@ public class ParticleCSV : MonoBehaviour {
 
 
 	/// <summary>
+	/// Value for scaling star radius size.
+	/// </summary>
+	private float SIZE_MODIFIER = 0.5f;
+
+
+	/// <summary>
 	/// Particle system to create "stars" at given locations.
 	/// Defined in editor.
 	/// </summary>
@@ -201,7 +207,7 @@ public class ParticleCSV : MonoBehaviour {
 			}
 			
 
-			float par_size = scale_one_through_zero_value((float)star.radius, s.max_radius, 5.0f);
+			float par_size = scale_one_through_zero_value((float)star.radius, s.max_radius, SIZE_MODIFIER);
 			par.startSize = par_size + 0.1f;
 			arrParts [i] = par;
 		}

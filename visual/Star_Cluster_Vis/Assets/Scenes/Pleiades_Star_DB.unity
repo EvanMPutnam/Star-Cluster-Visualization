@@ -5253,7 +5253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MOD_VAL: 1
   partSystem: {fileID: 1090128691}
-  file: {fileID: 4900000, guid: 808092f299baa482d951a8fdedfddd23, type: 3}
+  file: {fileID: 4900000, guid: 7148f15108f2e40f8a51ca52a458337c, type: 3}
   is_b_minus_v_value: 1
 --- !u!1 &1118550623
 GameObject:
