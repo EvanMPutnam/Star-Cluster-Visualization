@@ -1,4 +1,0 @@
-#Tue Dec 10 12:31:24 EST 2019
-base.0=/Users/evanputnam/Desktop/Star_Cluster/Star-Cluster-Visualization/visual/Star_Cluster_Vis/Temp/gradleOut/build/intermediates/transforms/dexMerger/release/0
-path.0=classes.dex
-renamed.0=classes.dex

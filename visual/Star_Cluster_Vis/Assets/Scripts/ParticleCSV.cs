@@ -21,12 +21,16 @@ public class ColorIndex {
 /// Basic class to represent a star.
 /// </summary>
 public class Star{
+
+	//Location information for plotting
 	public float x;
 	public float y;
 	public float z;
 
+	//Size values
 	public float radius;
 
+	//Can do a b_minus_v calc for color.
 	public float b_minus_v;
 
 	public Star(float x, float y, float z, float radius, float b_minus_v = 4.0f){
@@ -44,19 +48,24 @@ Each parser needs to return an instance of this class.
 */
 public class StarContainer{
 
+
+	//List of all star objects
 	private List<Star> stars;
 
+	//List of corresponding color objects for stars.
 	private List<ColorIndex> colorsRGB;
 
 
+	//Mod value used to get the stars.
 	public int modVal { get; private set; }
 
+	//Scale value to scale down the x,y,z coordiantes
 	public float scaleVal { get; private set; }
 
+	//Max values that appeared in the .csv
 	public float max_r_val {get; set;}
 	public float max_g_val {get; set;}
 	public float max_b_val {get; set;}
-
 	public float max_radius {get; set;}
 
 	public StarContainer(int modVal, float scaleVal){
@@ -151,7 +160,7 @@ public class ParticleCSV : MonoBehaviour {
 	/// Start function reads in the csv files and then subsequently creates the stars.
 	/// </summary>
 	void Start () {
-		StarContainer s = Generic_Parser.Create_Star_Cluster(file, MOD_VAL, pScalar);
+		StarContainer s = Generic_Parser.Create_Star_Cluster(file, MOD_VAL, pScalar, true);
 		Plot_Stars(s);
 	}
 
@@ -206,9 +215,12 @@ public class ParticleCSV : MonoBehaviour {
 				}
 			}
 			
-
+			//Scale the particles to be slightly different sizes.
 			float par_size = scale_one_through_zero_value((float)star.radius, s.max_radius, SIZE_MODIFIER);
 			par.startSize = par_size + 0.1f;
+
+
+			//Assign the particle.
 			arrParts [i] = par;
 		}
 		partSystem.SetParticles(arrParts, s.starLength());
@@ -250,10 +262,6 @@ public class ParticleCSV : MonoBehaviour {
 		var R = (r <= 0.0031308)? 12.92*r : 1.055*Math.Pow(r,1/2.4)-0.055;
 		var G = (g <= 0.0031308)? 12.92*g : 1.055*Math.Pow(g,1/2.4)-0.055;
 		var B = (b <= 0.0031308)? 12.92*b : 1.055*Math.Pow(b,1/2.4)-0.055;
-
-		Debug.Log(R);
-		Debug.Log(G);
-		Debug.Log(B);
 
 		return new ColorIndex(R,G,B);
 	}
