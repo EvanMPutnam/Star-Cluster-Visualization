@@ -2,7 +2,7 @@
 This is a prototype for virtual reality visualization of star clusters and stellar data.
 
 
-## Oculus Quest Visualization
+## Oculus Quest Visualization Examples
 Click on Image to be taken to YouTube.
 
 
