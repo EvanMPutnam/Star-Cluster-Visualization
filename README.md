@@ -1,10 +1,6 @@
 # Star-Cluster-Visualization
-Virtual reality visualization of star cluster data.
+This is a prototype for virtual reality visualization of star clusters and stellar data.
 
-## How to Run
 
-## Requirements
-
-## Types of Acceptable Data
-
-## Oculus Quest
+## Oculus Quest Visualization
+[![Alt text](https://img.youtube.com/vi/vC3t3z4szpg/0.jpg)](https://www.youtube.com/watch?v=vC3t3z4szpg)
