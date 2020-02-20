@@ -7,9 +7,9 @@ public class Generic_Parser {
     private const string X_COL = "x";
     private const string Y_COL = "y";
     private const string Z_COL = "z";
-    private const string R_COL = "phot_rp_mean_mag";
-    private const string G_COL = "phot_g_mean_mag";
-    private const string B_COL = "phot_bp_mean_mag";
+    private const string R_COL = "reg";
+    private const string G_COL = "green";
+    private const string B_COL = "blue";
     private const string B_MINUS_V = "bp_rp";
     private const string RADIUS = "radius";
 
@@ -49,9 +49,9 @@ public class Generic_Parser {
         int count = 0;
 
         //Max rgb values present in data
-        float max_r_val = 0;
-        float max_g_val = 0;
-        float max_b_val = 0;
+        float max_r_val = 255;
+        float max_g_val = 255;
+        float max_b_val = 255;
 
         //Max radius value present in data
         float max_radius = 0;
@@ -61,6 +61,7 @@ public class Generic_Parser {
 
         //First val variable to get labels
         bool first_val = true;
+
 
         //Iterate over each line in .csv
         foreach (string line in lines){
@@ -111,7 +112,6 @@ public class Generic_Parser {
                                         float.Parse(line_parts[g_index]), 
                                         float.Parse(line_parts[b_index]));
                             
-                            Debug.Log(line_parts[r_index]);
                             if(float.Parse(line_parts[r_index]) > max_r_val){
                                 max_r_val = float.Parse(line_parts[r_index]);
                             }
@@ -122,7 +122,7 @@ public class Generic_Parser {
                                 max_b_val = float.Parse(line_parts[b_index]);
                             }
                         }catch{
-                            ci = new ColorIndex(15.0f, 15.0f, 15.0f);
+                            ci = new ColorIndex(max_r_val, max_g_val, max_b_val);
                         }
                         try{
                             b_minus = float.Parse(line_parts[b_minx_v_index]);
@@ -143,15 +143,23 @@ public class Generic_Parser {
                     }
 
                     //Add the star and its respective values to the chart.
+                    float rad = 0.5f;
+                    try{
+                        rad = float.Parse(line_parts[radius_index]);
+                    } catch {
+
+                    }
+                    rad = Mathf.Abs(rad);
+
                     s.addStar(float.Parse(line_parts[x_index]), 
                                 float.Parse(line_parts[z_index]), 
                                 float.Parse(line_parts[y_index]), 
-                                float.Parse(line_parts[radius_index]),
+                                rad,
                                 ci, b_minus);
 
                     //Max radius calculation
-                    if(float.Parse(line_parts[radius_index]) > max_radius){
-                        max_radius = float.Parse(line_parts[radius_index]);
+                    if(rad > max_radius){
+                        max_radius = rad;
                     }
                     
                 }
@@ -164,6 +172,7 @@ public class Generic_Parser {
             }
             //Did not find
             if(x_index == -1 || y_index == -1 || z_index == -1 || radius_index == -1){
+                Debug.LogError("Error: Could not find one of the following -> x, y, z or radius");
                 return null;
             }
 
@@ -199,6 +208,10 @@ public class Generic_Parser {
         s.max_radius = max_radius;
 
         //Here be your magical data structure!
+        Debug.Log(s.max_r_val);
+        Debug.Log(s.max_g_val);
+        Debug.Log(s.max_b_val);
+        Debug.Log(s.max_radius);
         return s;
     }
 
